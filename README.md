@@ -8,7 +8,7 @@
 #### both front end and backend have their individaul Docker file, you can run it 
 
 ## Public URL 
-#### forntend:  https://belvofront.herokuapp.com/docs
+#### forntend:  https://belvofront.herokuapp.com/
 #### backend:  https://belvoapi.herokuapp.com/docs
 
 # Running backend locally
