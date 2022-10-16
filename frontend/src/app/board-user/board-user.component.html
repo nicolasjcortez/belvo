@@ -1,0 +1,78 @@
+<div>
+  <header >
+  </header>
+  <body>
+    <div class="container">
+    <div class="margin-25">
+    <mat-form-field appearance="fill">
+      <mat-label>Link</mat-label>
+      <mat-select [formControl]="linkControl" (selectionChange)="updateAccountSelect($event)" [(value)]="selectedLink" required>
+        <mat-option *ngFor="let link of links" [value]="link">
+          {{link.institution}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="linkControl.hasError('required')">Please choose a Link</mat-error>
+      <!-- <mat-hint>{{linkControl.value?.owner}}</mat-hint> -->
+    </mat-form-field>
+    </div>
+  
+    <div class="margin-25">
+    <mat-form-field appearance="fill">
+      <mat-label>Account</mat-label>
+      <mat-select [formControl]="accountControl" (selectionChange)="enableGenerateReport($event)" [(value)]="selectedAccount" required>
+        <mat-option *ngFor="let account of accounts" [value]="account">
+          {{account.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="accountControl.hasError('required')">Please choose an Account</mat-error>
+      <!-- <mat-hint>{{linkControl.value?.owner}}</mat-hint> -->
+    </mat-form-field>
+    </div>
+
+    <div class="margin-25" *ngIf="showOwners">
+      <mat-card>
+        <mat-card-title>Owners</mat-card-title>
+        <div *ngFor="let owner of owners" >
+          <p>{{owner.display_name}}</p>
+        </div>
+      </mat-card>      
+    </div>
+  </div>
+
+
+    <div style="margin-left: 150px;"*ngIf="showIncomeReport">
+      <h1>Last 365 days income by type</h1>
+      <div *ngIf="showGenerateReportBtn" >
+        <ngx-charts-bar-vertical
+        [view]="view"
+        [results]="incomes"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        [legendTitle]="legendTitle">
+      </ngx-charts-bar-vertical>
+    </div>
+    <div *ngIf="!showGenerateReportBtn" >
+      <p> No income chart for this account type or no income founded </p>
+    </div>
+  </div>
+
+  <div class="my-container">
+    <ng-template #customLoadingTemplate>
+      <div class="custom-class">
+        <h3>Loading...</h3>
+      </div>
+    </ng-template>
+  </div>
+  <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+    [template]="customLoadingTemplate"
+  ></ngx-loading>
+
+  </body>
+</div>

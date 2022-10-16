@@ -1,0 +1,5 @@
+backend/app/deployHeroku.ps1
+frontend/deployHeroku.ps1
+backend/app/venv
+backend/app/__pycache__
+

@@ -1,0 +1,11 @@
+.margin-25 {
+    margin: 25px;
+  }
+
+p {
+    margin: 25px;
+  }
+
+.container{
+    display: flex;
+}
