@@ -50,6 +50,7 @@
 
 # Improvements 
 ## Develop tests on backend and frontend
+## Mobile responsive
 
 
 
