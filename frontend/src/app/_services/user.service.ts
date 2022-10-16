@@ -41,6 +41,13 @@ export class UserService {
     }, httpOptions);
   }
 
+  getTransactionsTable(link: string, account: string): Observable<any> {
+    return this.http.post(API_URL + 'transactions_table', {
+      "link_id": link,
+      "account_id": account
+    }, httpOptions);
+  }
+
   getLinks(): Observable<any> {
     return this.http.get(API_URL + 'users/me/links/details', {
     });

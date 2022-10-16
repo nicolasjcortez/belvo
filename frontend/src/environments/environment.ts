@@ -7,7 +7,7 @@ export const environment = {
 };
 
 export const api = {
-  url:  'http://127.0.0.1:5000'
+  url:  'http://localhost:8000/'
 }
 
 /*

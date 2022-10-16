@@ -32,6 +32,9 @@ export class BoardUserComponent implements OnInit {
   showOwners: boolean = false
   showIncomeReport: boolean = false
 
+  showTable: boolean = false
+  displayedColumns: string[] = ['type', 'amount', 'currency', 'accounting_date', 'status', 'description'];
+  dataSource: any
 
   constructor(private userService: UserService) { }
 
@@ -55,6 +58,7 @@ export class BoardUserComponent implements OnInit {
     this.loading = true
     this.showOwners = false
     this.showIncomeReport = false
+    this.showTable = false
     let link = this.selectedLink
     console.log(link.id)
     this.userService.getAccounts(link=link.id).subscribe(
@@ -83,6 +87,7 @@ export class BoardUserComponent implements OnInit {
   enableGenerateReport(event: any): void {
     this.loading = true
     this.showIncomeReport = false
+    this.showTable = false
     this.showGenerateReportBtn = false;
     let link = this.selectedLink
     let account = this.selectedAccount
@@ -102,5 +107,17 @@ export class BoardUserComponent implements OnInit {
       }
     );
     
+    link = this.selectedLink
+    account = this.selectedAccount
+    this.userService.getTransactionsTable(link=link.id, account.id).subscribe(
+      data => {
+        this.dataSource = data
+        this.showTable = true
+
+      },
+      err => {
+      }
+    );
+
   }
 }

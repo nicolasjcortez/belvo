@@ -111,7 +111,7 @@ def retrieve_accounts(link: schemas.LinkBase):
 
 
 @app.post("/transactions")
-def retrieve_transactions(link: schemas.LinkWithDates):
+def retrieve_transactions(link: schemas.LinkBase):
     try:
         response = client.Transactions.create(
             link=link.link,
@@ -125,8 +125,35 @@ def retrieve_transactions(link: schemas.LinkWithDates):
     pretty_print_response(response)
     return response
 
+@app.post("/transactions_table")
+def retrieve_transactions_table(req: schemas.LinkAndAccount):
+    try:
+        all_transactions = client.Transactions.create(
+            link=req.link_id,
+            date_from=datetime.strftime(datetime.now() - timedelta(days=30), "%Y-%m-%d"),
+            date_to=datetime.strftime(datetime.now(), "%Y-%m-%d"),
+        )
+        account_transactions = [i for i in all_transactions if i['account']["id"] == req.account_id]
+        response = []
+        for trans in account_transactions:
+            filtered_trans = {
+                "type": trans["type"],
+                "accounting_date": trans["accounting_date"],
+                "currency": trans["currency"],
+                "amount": trans["amount"],
+                "status": trans["status"],
+                "description": trans["description"]
+            }
+            response.append(filtered_trans)
+        response.sort(key=lambda item:item['accounting_date'], reverse=True)
+    except RequestError as e:
+        return format_error(e)
+
+    pretty_print_response(response)
+    return response
+
 @app.post("/incomes")
-def retrieve_income_report_data(incomes_req: schemas.IncomesReport):
+def retrieve_income_report_data(incomes_req: schemas.LinkAndAccount):
     try:
         all_incomes = client.Incomes.create(
             link=incomes_req.link_id
@@ -221,5 +248,5 @@ def pretty_print_response(response):
 
 
 # Comment to deploy
-# if __name__ == '__main__':
-#     uvicorn.run(app, host='127.0.0.1', port=8000, debug=True)
+if __name__ == '__main__':
+    uvicorn.run(app, host='127.0.0.1', port=8000, debug=True)

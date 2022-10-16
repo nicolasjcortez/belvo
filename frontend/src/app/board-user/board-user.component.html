@@ -39,27 +39,71 @@
     </div>
   </div>
 
+  <div style="margin-top: 20px; margin-left: 25px;" *ngIf="showTable">
+    <h1>Last 30 days transactions</h1>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <div style="margin-left: 150px;"*ngIf="showIncomeReport">
-      <h1>Last 365 days income by type</h1>
-      <div *ngIf="showGenerateReportBtn" >
-        <ngx-charts-bar-vertical
-        [view]="view"
-        [results]="incomes"
-        [xAxis]="showXAxis"
-        [yAxis]="showYAxis"
-        [legend]="showLegend"
-        [showXAxisLabel]="showXAxisLabel"
-        [showYAxisLabel]="showYAxisLabel"
-        [xAxisLabel]="xAxisLabel"
-        [yAxisLabel]="yAxisLabel"
-        [legendTitle]="legendTitle">
-      </ngx-charts-bar-vertical>
-    </div>
-    <div *ngIf="!showGenerateReportBtn" >
-      <p> No income chart for this account type or no income founded </p>
-    </div>
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+      <!-- Position Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      </ng-container>
+      displayedColumns: string[] = ['type', 'amount', 'currency', 'accounting_date', 'status', 'description'];
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef> Currency </th>
+        <td mat-cell *matCellDef="let element"> {{element.currency}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="accounting_date">
+        <th mat-header-cell *matHeaderCellDef> Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.accounting_date}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
   </div>
+
+  <div style="margin-left: 150px;"*ngIf="showIncomeReport">
+    <h1>Last 365 days income by type</h1>
+    <div *ngIf="showGenerateReportBtn" >
+      <ngx-charts-bar-vertical
+      [view]="view"
+      [results]="incomes"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [legendTitle]="legendTitle">
+    </ngx-charts-bar-vertical>
+  </div>
+  <div *ngIf="!showGenerateReportBtn" >
+    <p> No income chart for this account type or no income founded </p>
+  </div>
+</div>
 
   <div class="my-container">
     <ng-template #customLoadingTemplate>

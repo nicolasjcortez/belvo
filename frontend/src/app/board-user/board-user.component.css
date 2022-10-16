@@ -9,3 +9,8 @@ p {
 .container{
     display: flex;
 }
+
+table {
+  width: 90%;
+  margin: 30px;
+}

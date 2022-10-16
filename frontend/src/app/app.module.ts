@@ -15,6 +15,8 @@ import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxLoadingModule } from "ngx-loading";
 import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
+
 
 
 
@@ -37,7 +39,8 @@ import {MatCardModule} from '@angular/material/card';
     NgxChartsModule,
     BrowserAnimationsModule,
     NgxLoadingModule.forRoot({}),
-    MatCardModule
+    MatCardModule,
+    MatTableModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

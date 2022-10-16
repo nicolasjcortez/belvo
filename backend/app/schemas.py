@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class LinkBase(BaseModel):
     link: str
 
-class IncomesReport(BaseModel):
+class LinkAndAccount(BaseModel):
     account_id: str
     link_id: str
     
