@@ -2,6 +2,7 @@
 ## Features
 #### Sign up and Login
 #### Create a link in Belvo
+#### Generate table of last 30 days transactions
 #### For accounts that incomes are available, generate a bar chart of income per type
 
 ## Dockerfile
