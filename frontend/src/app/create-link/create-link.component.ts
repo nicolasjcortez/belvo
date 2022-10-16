@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_services/user.service';
 import { HttpClient } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
+import { api } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-create-link',
@@ -22,7 +24,7 @@ async function createWidget() {
   // Function to call your server-side to generate the access_token and retrieve the your access token
   function getAccessToken() {
       // Make sure to change /get-access-token to point to your server-side.
-      return fetch('http://localhost:8000/belvo/auth/token', {
+      return fetch( api.url + 'belvo/auth/token', {
               method: 'GET'
           })
           .then(response => response.json())
@@ -31,7 +33,7 @@ async function createWidget() {
   }
   const successCallbackFunction = (link: any, institution: any) => {
     console.log("token: "+ token)
-    fetch("http://localhost:8000/users/me/links", {
+    fetch( api.url + "users/me/links", {
         method: "POST",
         body: JSON.stringify({
           "link": link,
