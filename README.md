@@ -50,8 +50,11 @@
 #### Is it possible to create same link twice on create link
 
 # Improvements 
-## Develop tests on backend and frontend
-## Mobile responsive
+#### Develop more useful features
+#### Develop tests on backend and frontend
+#### Use config file on backend
+#### Automate running the application locally
+#### Make it obile responsive
 
 
 
